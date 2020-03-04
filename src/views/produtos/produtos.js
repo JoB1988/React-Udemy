@@ -31,9 +31,9 @@ export default class CadastroProduto extends React.Component {
         this.nameInput.current.focus();
     }
 
-    onSubmit(event) {
+    onSubmit = (event) => {
         event.preventDefault();
-        // this._resetForm();
+        this._resetForm();
         this.produtoService.salvar(this.state);
     }
 

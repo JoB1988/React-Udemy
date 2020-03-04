@@ -154,6 +154,54 @@
     },
     {
       "id": 21
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 22
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 23
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 24
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 25
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 26
+    },
+    {
+      "nome": "",
+      "sku": "",
+      "descricao": "",
+      "preco": 0,
+      "fornecedor": "",
+      "id": 27
     }
   ]
 }
