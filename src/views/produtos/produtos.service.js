@@ -2,7 +2,7 @@ import AXIOS from 'axios';
 
 export default class ProdutoService {
 
-    constructor() { }
+    // constructor() { }
 
     async salvar(produto) {
         AXIOS.defaults.headers.common = {}

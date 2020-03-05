@@ -5,4 +5,8 @@
   &:last-of-type {
     justify-content: flex-end;
   }
+  &-error {
+    color: red;
+    font-weight: 400;
+  }
 }
