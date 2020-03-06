@@ -7,6 +7,11 @@
   }
   &-error {
     color: red;
-    font-weight: 400;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  label {
+    text-transform: uppercase;
+    font-weight: 500;
   }
 }

@@ -70,15 +70,15 @@ export default class CadastroProduto extends React.Component {
     let newForm = this.state.form;
     Object.keys(this.state.form).forEach(attribute => {
       let error = "";
-      if (!this.state.form[attribute].value) {
-        error = `não pode estar em branco`;
-        isThereError = true;
-      }
       if (
         this.state.form[attribute].value.length <
         this.state.form[attribute].MinLength
       ) {
         error = `deve possuir ao menos 3 caracteres`;
+        isThereError = true;
+      }
+      if (!this.state.form[attribute].value) {
+        error = `não pode estar em branco`;
         isThereError = true;
       }
       if (
@@ -105,7 +105,7 @@ export default class CadastroProduto extends React.Component {
   _genericError = value => {
     return this.state.form[value].errorValue ? (
       <span className="row-error">
-        O campo {this._translator(value)} {this.state.form[value].errorValue}
+        o campo {this._translator(value)} {this.state.form[value].errorValue}
       </span>
     ) : (
       <></>
@@ -117,16 +117,16 @@ export default class CadastroProduto extends React.Component {
     let meaning = "";
     switch (value) {
       case "name":
-        meaning = "Nome";
+        meaning = "nome";
         break;
       case "description":
-        meaning = "Descrição";
+        meaning = "descrição";
         break;
       case "price":
-        meaning = "Preço";
+        meaning = "preço";
         break;
       case "provider":
-        meaning = "Fornecedor";
+        meaning = "fornecedor";
         break;
       default:
         meaning = "sku";
@@ -143,7 +143,7 @@ export default class CadastroProduto extends React.Component {
           <form onSubmit={this.onSubmit}>
             <div className="row">
               <div className="col-md-6">
-                <label>nome:</label>
+                <label>nome</label>
                 <input
                   type="text"
                   className="form-control"
@@ -159,7 +159,7 @@ export default class CadastroProduto extends React.Component {
                 {this._genericError("name")}
               </div>
               <div className="col-md-6">
-                <label>sku:</label>
+                <label>sku</label>
                 <input
                   type="text"
                   className="form-control"
@@ -173,7 +173,7 @@ export default class CadastroProduto extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <label>Descrição:</label>
+                <label>descrição</label>
                 <textarea
                   className="form-control"
                   name="description"
@@ -186,7 +186,7 @@ export default class CadastroProduto extends React.Component {
             </div>
             <div className="row">
               <div className="col-md-6">
-                <label>Preço:</label>
+                <label>preço</label>
                 <input
                   type="text"
                   className="form-control"
@@ -199,7 +199,7 @@ export default class CadastroProduto extends React.Component {
                 {this._genericError("price")}
               </div>
               <div className="col-md-6">
-                <label>Fornecedor:</label>
+                <label>fornecedor</label>
                 <input
                   type="text"
                   className="form-control"
