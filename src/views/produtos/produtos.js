@@ -5,11 +5,21 @@ import "./produtos.scss";
 
 const initialState = {
   form: {
-    name: { value: "", errorValue: "", regex: "[A-zÀ-ús]+", MinLength: 3 },
-    sku: { value: "", errorValue: "", regex: "", MinLength: 0 },
-    description: { value: "", errorValue: "", regex: "", MinLength: 0 },
-    price: { value: 0, errorValue: "", regex: "[A-zÀ-ús]+", MinLength: 0 },
-    provider: { value: "", errorValue: "", regex: "", MinLength: 0 }
+    name: {
+      value: "",
+      errorValue: "",
+      regex: new RegExp("^[a-zA-ZÀ-Úà-ú ]*$"),
+      MinLength: 3
+    },
+    sku: { value: "", errorValue: "", MinLength: 0 },
+    description: { value: "", errorValue: "", MinLength: 0 },
+    price: {
+      value: 0,
+      errorValue: "",
+      regex: new RegExp("^[0-9]*$"),
+      MinLength: 0
+    },
+    provider: { value: "", errorValue: "", MinLength: 0 }
   }
 };
 
@@ -54,7 +64,7 @@ export default class CadastroProduto extends React.Component {
     }
   };
 
-  // verifica se há erros no form
+  // verifica se há erros no form, o metodo abaixo faz um foreach no objeto
   _validation = () => {
     let isThereError = false;
     let newForm = this.state.form;
@@ -71,10 +81,15 @@ export default class CadastroProduto extends React.Component {
         error = `deve possuir ao menos 3 caracteres`;
         isThereError = true;
       }
-      //   if (attribute.regex && (attribute.pattern !== this.state[attribute].regex)) {
-      //     error = `deve possuir apenas letras`;
-      //     isThereError = true;
-      //   }
+      if (
+        this.state.form[attribute].regex &&
+        !this.state.form[attribute].regex.test(this.state.form[attribute].value)
+      ) {
+        const errorName = `deve possuir apenas letras`;
+        const errorNumber = `deve possuir apenas números`;
+        attribute === "name" ? (error = errorName) : (error = errorNumber);
+        isThereError = true;
+      }
       newForm[attribute] = {
         value: this.state.form[attribute].value,
         errorValue: error,
