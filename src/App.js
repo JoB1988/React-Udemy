@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './components/navbar';
-import Rotas from './rotas';
+import Routes from './routes';
 
 function App() {
     return (
@@ -8,7 +8,7 @@ function App() {
         {/* Header */}
         <NavBar />
         {/* Rotas, é tipo router-outlet */}
-        <Rotas />
+        <Routes />
     </div>
     )
 }

@@ -3,25 +3,25 @@ import "./produtos.scss";
 // import ProdutoService from "./produtos.service";
 // import Toast from "../../components/toast";
 
-const initialState = {
-  form: {
-    name: {
-      value: "",
-      errorValue: "",
-      regex: new RegExp("^[a-zA-ZÀ-Úà-ú ]*$"),
-      MinLength: 3
-    },
-    sku: { value: "", errorValue: "", MinLength: 0 },
-    description: { value: "", errorValue: "", MinLength: 0 },
-    price: {
-      value: 0,
-      errorValue: "",
-      regex: new RegExp("^[0-9]*$"),
-      MinLength: 0
-    },
-    provider: { value: "", errorValue: "", MinLength: 0 }
-  }
-};
+const IS = {
+    form: {
+      name: {
+        value: "",
+        errorValue: "",
+        regex: new RegExp("^[a-zA-ZÀ-Úà-ú ]*$"),
+        MinLength: 3
+      },
+      sku: { value: "", errorValue: "", MinLength: 0 },
+      description: { value: "", errorValue: "", MinLength: 0 },
+      price: {
+        value: 0,
+        errorValue: "",
+        regex: new RegExp("^[0-9]*$"),
+        MinLength: 0
+      },
+      provider: { value: "", errorValue: "", MinLength: 0 }
+    }
+  };
 
 export default class CadastroProduto extends React.Component {
   constructor() {
@@ -31,7 +31,7 @@ export default class CadastroProduto extends React.Component {
   }
 
   // estado inicial da aplicação
-  state = initialState;
+  state = IS;
 
   // na troca dos inputs, esse método é invocado e altera o valor do estado
   onChange(event) {
@@ -51,7 +51,16 @@ export default class CadastroProduto extends React.Component {
 
   // zera o form e foca no primeiro input
   _resetForm = () => {
-    this.setState(initialState);
+    let newForm = this.state.form;
+    Object.keys(this.state.form).forEach(attribute => {
+      newForm[attribute] = {
+        value: IS.form[attribute].value,
+        errorValue: "",
+        regex: this.state.form[attribute].regex,
+        MinLength: this.state.form[attribute].MinLength
+      };
+    });
+    this.setState({ form: newForm });
     this.nameInput.current.focus();
   };
 
@@ -108,7 +117,7 @@ export default class CadastroProduto extends React.Component {
         o campo {this._translator(value)} {this.state.form[value].errorValue}
       </span>
     ) : (
-      <></>
+        <span className="row-error"></span>
     );
   };
 

@@ -1,14 +1,14 @@
 .row {
-  &:not(:last-of-type) {
-    margin-bottom: 20px;
-  }
   &:last-of-type {
     justify-content: flex-end;
   }
   &-error {
+    display: flex;
+    align-items: flex-start;
     color: red;
     font-weight: 500;
     font-size: 12px;
+    height: 30px;
   }
   label {
     text-transform: uppercase;
