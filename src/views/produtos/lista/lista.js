@@ -1,6 +1,22 @@
 import React from "react";
+import ProdutoService from "../produto.service";
 
 export default class ListaProduto extends React.Component {
+  constructor() {
+    super();
+    this.produtoService = new ProdutoService();
+  }
+
+  state = {
+    produtos: []
+  };
+
+  componentDidMount() {
+    this.produtoService.get().then(response => {
+      this.setState({ produtos: response });
+    });
+  }
+
   render() {
     return (
       <table className="table table-hover">
@@ -14,13 +30,17 @@ export default class ListaProduto extends React.Component {
           </tr>
         </thead>
         <tbody>
-          <tr className="table-dark">
-            <th scope="row">tenis nike</th>
-            <td>123457890</td>
-            <td>Lindo tenis da Nike</td>
-            <td>R$ 599.90</td>
-            <td>nike</td>
-          </tr>
+          {this.state.produtos.map((produto, index) => {
+            return (
+              <tr key={index} className="table-dark">
+                <th scope="row">{produto.name}</th>
+                <td>{produto.sku}</td>
+                <td>{produto.desc}</td>
+                <td>{produto.price}</td>
+                <td>{produto.provider}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     );

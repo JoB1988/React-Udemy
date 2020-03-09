@@ -1,19 +1,19 @@
 {
   "produtos": [
     {
-      "id": 1,
-      "nome": "Jonathan",
-      "sku": "1",
-      "descricao": "Jonathan",
-      "preco": "1",
-      "fornecedor": "Jonathan"
-    },
-    {
-      "name": "name",
+      "name": "Jonathan",
       "sku": "sku",
       "desc": "description",
       "price": "10",
-      "provider": "provider",
+      "provider": "Everis",
+      "id": 1
+    },
+    {
+      "name": "Fabricio",
+      "sku": "sku",
+      "desc": "description",
+      "price": "10",
+      "provider": "Everis",
       "id": 2
     },
     {
@@ -31,6 +31,14 @@
       "price": "10",
       "provider": "Everis",
       "id": 4
+    },
+    {
+      "name": "Alessandra",
+      "sku": "sku",
+      "desc": "description",
+      "price": "100",
+      "provider": "Everis",
+      "id": 5
     }
   ]
 }

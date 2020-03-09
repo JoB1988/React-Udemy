@@ -1,7 +1,7 @@
 import React from "react";
 import "./cadastro.scss";
-import ProdutoService from "./cadastro.service";
-import { Cadastro } from "./cadastro.model";
+import ProdutoService from "../produto.service";
+import { Produto } from "../cadastro.model";
 // import Toast from "../../components/toast";
 
 const IS = {
@@ -69,7 +69,7 @@ export default class CadastroProduto extends React.Component {
   onSubmit = event => {
     event.preventDefault();
     if (!this._validation()) {
-      const cadastro = new Cadastro(
+      const cadastro = new Produto(
         this.state.form.name.value,
         this.state.form.sku.value,
         this.state.form.description.value,
@@ -77,7 +77,9 @@ export default class CadastroProduto extends React.Component {
         this.state.form.provider.value
       );
       this._resetForm();
-      this.produtoService.salvar(cadastro);
+      this.produtoService.salvar(cadastro).then(response => {
+        console.log(response);
+      });
     }
   };
 

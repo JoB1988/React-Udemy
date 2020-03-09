@@ -1,4 +1,4 @@
-export class Cadastro {
+export class Produto {
     constructor(name, sku, desc, price, provider) {
         this.name = name;
         this.sku = sku;
