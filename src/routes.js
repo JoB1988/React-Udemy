@@ -1,9 +1,9 @@
 import React from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import Home from './views/home';
-import CadastroProduto from './views/produtos/cadastro';
-import ListaProduto from './views/produtos/lista';
-import ConsultaProduto from './views/produtos/consulta';
+import CadastroProduto from './views/produtos/cadastro/cadastro';
+import ListaProduto from './views/produtos/lista/lista';
+import ConsultaProduto from './views/produtos/consulta/consulta';
 
 export default () => {
     return (

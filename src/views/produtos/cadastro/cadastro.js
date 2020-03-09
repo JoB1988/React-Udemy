@@ -1,33 +1,34 @@
 import React from "react";
-import "./produtos.scss";
-// import ProdutoService from "./produtos.service";
+import "./cadastro.scss";
+import ProdutoService from "./cadastro.service";
+import { Cadastro } from "./cadastro.model";
 // import Toast from "../../components/toast";
 
 const IS = {
-    form: {
-      name: {
-        value: "",
-        errorValue: "",
-        regex: new RegExp("^[a-zA-ZÀ-Úà-ú ]*$"),
-        MinLength: 3
-      },
-      sku: { value: "", errorValue: "", MinLength: 0 },
-      description: { value: "", errorValue: "", MinLength: 0 },
-      price: {
-        value: 0,
-        errorValue: "",
-        regex: new RegExp("^[0-9]*$"),
-        MinLength: 0
-      },
-      provider: { value: "", errorValue: "", MinLength: 0 }
-    }
-  };
+  form: {
+    name: {
+      value: "",
+      errorValue: "",
+      regex: new RegExp("^[a-zA-ZÀ-Úà-ú ]*$"),
+      MinLength: 3
+    },
+    sku: { value: "", errorValue: "", MinLength: 0 },
+    description: { value: "", errorValue: "", MinLength: 0 },
+    price: {
+      value: 0,
+      errorValue: "",
+      regex: new RegExp("^[0-9]*$"),
+      MinLength: 0
+    },
+    provider: { value: "", errorValue: "", MinLength: 0 }
+  }
+};
 
 export default class CadastroProduto extends React.Component {
   constructor() {
     super();
     this.nameInput = React.createRef();
-    // this.produtoService = new ProdutoService();
+    this.produtoService = new ProdutoService();
   }
 
   // estado inicial da aplicação
@@ -68,8 +69,15 @@ export default class CadastroProduto extends React.Component {
   onSubmit = event => {
     event.preventDefault();
     if (!this._validation()) {
+      const cadastro = new Cadastro(
+        this.state.form.name.value,
+        this.state.form.sku.value,
+        this.state.form.description.value,
+        this.state.form.price.value,
+        this.state.form.provider.value
+      );
       this._resetForm();
-      // this.produtoService.salvar(this.state);
+      this.produtoService.salvar(cadastro);
     }
   };
 
@@ -117,7 +125,7 @@ export default class CadastroProduto extends React.Component {
         o campo {this._translator(value)} {this.state.form[value].errorValue}
       </span>
     ) : (
-        <span className="row-error"></span>
+      <span className="row-error"></span>
     );
   };
 

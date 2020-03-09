@@ -7,7 +7,30 @@
       "descricao": "Jonathan",
       "preco": "1",
       "fornecedor": "Jonathan"
+    },
+    {
+      "name": "name",
+      "sku": "sku",
+      "desc": "description",
+      "price": "10",
+      "provider": "provider",
+      "id": 2
+    },
+    {
+      "name": "Gisele",
+      "sku": "sku",
+      "desc": "description",
+      "price": "10",
+      "provider": "Everis",
+      "id": 3
+    },
+    {
+      "name": "Tiago",
+      "sku": "sku",
+      "desc": "Funcionário da Everis",
+      "price": "10",
+      "provider": "Everis",
+      "id": 4
     }
-    
   ]
 }
