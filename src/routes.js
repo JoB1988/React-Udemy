@@ -10,7 +10,8 @@ export default () => {
     <Switch>
       {/* exact que dizer que eu quero que seja exatamente essa rota que eu quero que seja aberta */}
       <Route exact path="/" component={Home} />
-      <Route exact path="/cadastro-produto" component={CadastroProduto} />
+      {/* forma de passar o parâmetro para essa tela */}
+      <Route exact path="/cadastro-produto/:id?" component={CadastroProduto} />
       <Route exact path="/lista-produto" component={ListaProduto} />
       <Route exact path="/consulta-produto" component={ConsultaProduto} />
     </Switch>
