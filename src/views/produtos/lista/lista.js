@@ -1,7 +1,11 @@
 import React from "react";
 import ProdutoService from "../produto.service";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './lista.scss';
+import { withRouter } from 'react-router-dom';
+import { faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-export default class ListaProduto extends React.Component {
+class ListaProduto extends React.Component {
   constructor() {
     super();
     this.produtoService = new ProdutoService();
@@ -12,9 +16,28 @@ export default class ListaProduto extends React.Component {
   };
 
   componentDidMount() {
-    this.produtoService.get().then(response => {
+    this.produtoService.getAll().then(response => {
       this.setState({ produtos: response });
+    }, error => {
+      console.log(error)
     });
+  }
+
+  edit = (id) => {
+    // enviando o id pela rota
+    this.props.history.push(`/cadastro-produto/${id}`)
+  }
+
+  delete = (id) => {
+    this.produtoService.delete(id).then(response => {
+      this.updateArray(id);
+    }, error => {
+      console.log(error)
+    });
+  }
+
+  updateArray = (id) => {
+    this.setState({ produtos: this.state.produtos.filter((i) => i.id !== id ) })
   }
 
   render() {
@@ -27,6 +50,7 @@ export default class ListaProduto extends React.Component {
             <th scope="col">descrição</th>
             <th scope="col">preço</th>
             <th scope="col">fornecedor</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +62,14 @@ export default class ListaProduto extends React.Component {
                 <td>{produto.desc}</td>
                 <td>{produto.price}</td>
                 <td>{produto.provider}</td>
+                <td>
+                  <button className='editButton' onClick={() => this.edit(produto.id)}>
+                    <FontAwesomeIcon icon={faEdit} />
+                  </button>
+                  <button className='deleteButton' onClick={() => this.delete(produto.id)}>
+                    <FontAwesomeIcon icon={faTimes} />
+                  </button>
+                </td>
               </tr>
             );
           })}
@@ -46,3 +78,6 @@ export default class ListaProduto extends React.Component {
     );
   }
 }
+
+// para navegar entre rotas enviando parâmetros, não dá export default clas lá em cima
+export default withRouter(ListaProduto);
