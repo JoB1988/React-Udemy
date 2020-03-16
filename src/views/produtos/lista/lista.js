@@ -37,7 +37,8 @@ class ListaProduto extends React.Component {
   }
 
   updateArray = (id) => {
-    this.setState({ produtos: this.state.produtos.filter((i) => i.id !== id ) })
+    // retorna um novo array com excessão do deletado
+    this.setState({ produtos: this.state.produtos.filter((produto) => produto.id !== id ) })
   }
 
   render() {
