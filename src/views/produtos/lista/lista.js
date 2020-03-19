@@ -1,11 +1,12 @@
 import React from "react";
 import ProdutoService from "../produto.service";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './lista.scss';
-import { withRouter } from 'react-router-dom';
-import { faTimes, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./lista.scss";
+import { withRouter } from "react-router-dom";
+import { faTimes, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 class ListaProduto extends React.Component {
+
   constructor() {
     super();
     this.produtoService = new ProdutoService();
@@ -16,30 +17,42 @@ class ListaProduto extends React.Component {
   };
 
   componentDidMount() {
-    this.produtoService.getAll().then(response => {
-      this.setState({ produtos: response });
-    }, error => {
-      console.log(error)
-    });
+    this.produtoService.getAll().then(
+      response => {
+        if (response) {
+          this.setState({ produtos: response });
+        } else {
+          this.setState({ produtos: [] });
+        }
+      },
+      error => {
+        console.log(error);
+      }
+    );
   }
 
-  edit = (id) => {
+  edit = id => {
     // enviando o id pela rota
-    this.props.history.push(`/cadastro-produto/${id}`)
-  }
+    this.props.history.push(`/cadastro-produto/${id}`);
+  };
 
-  delete = (id) => {
-    this.produtoService.delete(id).then(response => {
-      this.updateArray(id);
-    }, error => {
-      console.log(error)
-    });
-  }
+  delete = id => {
+    this.produtoService.delete(id).then(
+      response => {
+        this.updateArray(id);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  };
 
-  updateArray = (id) => {
+  updateArray = id => {
     // retorna um novo array com excessão do deletado
-    this.setState({ produtos: this.state.produtos.filter((produto) => produto.id !== id ) })
-  }
+    this.setState({
+      produtos: this.state.produtos.filter(produto => produto.id !== id)
+    });
+  };
 
   render() {
     return (
@@ -64,10 +77,16 @@ class ListaProduto extends React.Component {
                 <td>{produto.price}</td>
                 <td>{produto.provider}</td>
                 <td>
-                  <button className='editButton' onClick={() => this.edit(produto.id)}>
+                  <button
+                    className="editButton"
+                    onClick={() => this.edit(produto.id)}
+                  >
                     <FontAwesomeIcon icon={faEdit} />
                   </button>
-                  <button className='deleteButton' onClick={() => this.delete(produto.id)}>
+                  <button
+                    className="deleteButton" 
+                    onClick={() => this.delete(produto.id)}
+                  >
                     <FontAwesomeIcon icon={faTimes} />
                   </button>
                 </td>
@@ -80,5 +99,6 @@ class ListaProduto extends React.Component {
   }
 }
 
-// para navegar entre rotas enviando parâmetros, não dá export default clas lá em cima
+// para navegar entre rotas enviando parâmetros, não dá export default clas lá em cima. Tem que ser
+// como está em baixo
 export default withRouter(ListaProduto);

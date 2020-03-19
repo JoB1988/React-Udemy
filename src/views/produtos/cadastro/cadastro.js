@@ -2,7 +2,7 @@ import React from "react";
 import "./cadastro.scss";
 import ProdutoService from "../produto.service";
 import { Produto } from "../cadastro.model";
-// import Toast from "../../components/toast";
+import Toast from "../../../components/toast";
 
 const IS = {
   form: {
@@ -20,16 +20,19 @@ const IS = {
       regex: new RegExp("^[0-9]*$"),
       MinLength: 0
     },
-    provider: { value: "", errorValue: "", MinLength: 0 },
+    provider: { value: "", errorValue: "", MinLength: 0 }
   },
   id: undefined,
-  chosedMethod: 'salvar',
-  title: 'Cadastro de Produto'
+  chosedMethod: "salvar",
+  pageTitle: "Cadastro de Produto",
+  toastTitle: "",
+  toastMessage: ""
 };
 
 export default class CadastroProduto extends React.Component {
   constructor() {
     super();
+    // cria uma referencia do input
     this.nameInput = React.createRef();
     this.produtoService = new ProdutoService();
   }
@@ -37,17 +40,25 @@ export default class CadastroProduto extends React.Component {
   componentDidMount() {
     const ID = this.props.match.params.id;
     if (ID) {
-      this.produtoService.getById(ID).then(response => {
-        let newForm = this.state.form;
-        newForm.description.value = response.desc
-        newForm.name.value = response.name
-        newForm.sku.value = response.sku
-        newForm.price.value = response.price
-        newForm.provider.value = response.provider
-        this.setState({ form: newForm, chosedMethod: 'update', id: response.id, title: 'Atualização de Produto' })
-      }, error => {
-        console.log(error)
-      });
+      this.produtoService.getById(ID).then(
+        response => {
+          let newForm = this.state.form;
+          newForm.description.value = response.desc;
+          newForm.name.value = response.name;
+          newForm.sku.value = response.sku;
+          newForm.price.value = response.price;
+          newForm.provider.value = response.provider;
+          this.setState({
+            form: newForm,
+            chosedMethod: "update",
+            id: response.id,
+            pageTitle: "Atualização de Produto"
+          });
+        },
+        error => {
+          console.log(error);
+        }
+      );
     }
   }
 
@@ -69,20 +80,25 @@ export default class CadastroProduto extends React.Component {
       }
     });
   }
-  
+
   // zera o form e foca no primeiro input
   _resetForm = () => {
-    console.log(this.state)
     let newForm = this.state.form;
     Object.keys(this.state.form).forEach(attribute => {
       newForm[attribute] = {
-        value: IS.form[attribute].value,
+        value: "",
         errorValue: "",
         regex: this.state.form[attribute].regex,
         MinLength: this.state.form[attribute].MinLength
       };
     });
-    this.setState({ form: newForm, chosedMethod: 'salvar', id: undefined, title: 'Cadastro de Produto' });
+
+    this.setState({
+      form: newForm,
+      chosedMethod: "salvar",
+      id: undefined,
+      pageTitle: "Cadastro de Produto"
+    });
     this.nameInput.current.focus();
   };
 
@@ -100,8 +116,10 @@ export default class CadastroProduto extends React.Component {
       );
       this._resetForm();
       this.produtoService[this.state.chosedMethod](cadastro).then(response => {
-        console.log(this.state.chosedMethod);
-        console.log('sucesso');
+        this.setState({
+          toastTitle: "Sucesso",
+          toastMessage: "Salvo com sucesso"
+        });
       });
     }
   };
@@ -150,8 +168,8 @@ export default class CadastroProduto extends React.Component {
         o campo {this._translator(value)} {this.state.form[value].errorValue}
       </span>
     ) : (
-        <span className="row-error"></span>
-      );
+      <span className="row-error"></span>
+    );
   };
 
   // traduz a variável
@@ -180,8 +198,12 @@ export default class CadastroProduto extends React.Component {
   render() {
     return (
       <div className="card">
-        <div className="card-header">{this.state.title}</div>
+        <div className="card-header">{this.state.pageTitle}</div>
         <div className="card-body">
+          {Toast({
+            title: this.state.toastTitle,
+            message: this.state.toastMessage
+          })}
           <form onSubmit={this.onSubmit}>
             <div className="row">
               <div className="col-md-6">
@@ -206,7 +228,7 @@ export default class CadastroProduto extends React.Component {
                   type="text"
                   className="form-control"
                   name="sku"
-                  disabled = {this.state.id}
+                  disabled={this.state.id}
                   value={this.state.form.sku.value}
                   onChange={event => this.onChange(event)}
                   required
@@ -234,7 +256,7 @@ export default class CadastroProduto extends React.Component {
                   type="text"
                   className="form-control"
                   name="price"
-                  value={this.state.form.price.value}
+                  value={this.state.form.price.value || 0}
                   onChange={event => this.onChange(event)}
                   pattern="^[0-9]*$"
                   required

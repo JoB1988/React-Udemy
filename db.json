@@ -39,6 +39,14 @@
       "price": "100",
       "provider": "Everis",
       "id": 5
+    },
+    {
+      "name": "Silvia",
+      "sku": "Silvia",
+      "desc": "Funcionária do RH. Excelente!",
+      "price": "10",
+      "provider": "Sekron",
+      "id": 6
     }
   ]
 }

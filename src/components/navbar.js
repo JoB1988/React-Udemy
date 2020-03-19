@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <Link to="/lista-produto" className="navbar-brand">
+      <Link to="/lista-produto" className="navbar-brand" replace>
         Produtos
       </Link>
       <button
@@ -21,17 +21,17 @@ function NavBar() {
       <div className="collapse navbar-collapse" id="navbarColor02">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item active">
-            <Link className="nav-link" to="/">
+            <Link className="nav-link" to="/" replace>
               Home <span className="sr-only">(current)</span>
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/cadastro-produto">
+            <Link className="nav-link" to="/cadastro-produto" replace>
               Cadastro
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/consulta-produto">
+            <Link className="nav-link" to="/consulta-produto" replace>
               Consulta
             </Link>
           </li>
